@@ -284,7 +284,9 @@ function App() {
       </TableContainer>
       <h2>Total a pagar: ${calcularTotal()}</h2>
       <Button color="secondary" variant="contained" fullWidth onClick={handleOpenModal}>Pagar</Button>
-      <ModalPago open={modalOpen} onClose={handleCloseModal} />
+      {modalOpen && (
+        <ModalPago open={modalOpen} onClose={handleCloseModal} />
+      )}
       <br></br>
       <br></br>
     </div>);

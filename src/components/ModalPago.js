@@ -14,10 +14,6 @@ const ModalPago = ({ open, onClose }) => {
         setModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setModalOpen(false);
-    };
-
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Pagar</DialogTitle>
@@ -32,7 +28,7 @@ const ModalPago = ({ open, onClose }) => {
                     Confirmar Pago
                 </Button>
             </DialogActions>
-            <ModalConfirmacionPago open={modalOpen} onClose={handleCloseModal} />
+            <ModalConfirmacionPago open={modalOpen} onClose={onClose} />
         </Dialog>
     );
 };
