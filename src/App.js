@@ -20,11 +20,21 @@ import {
   TableRow,
   Paper
 } from '@mui/material';
+import ModalPago from './components/ModalPago'
 
 
 function App() {
 
   const [pedidos, setPedidos] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const validationSchema = yup.object({
     descripicionPedido: yup
@@ -37,7 +47,7 @@ function App() {
         }
         return true;
       })
-      .test('fileType', 'Formato de imagen no válido (Sólo se permite formato JPG )', (value) => {
+      .test('fileType', 'Formato de imagen no válido (Sólo se permite formato JPG)', (value) => {
         if (value) {
           return ['image/jpeg'].includes(value.type);
         }
@@ -273,7 +283,8 @@ function App() {
         </Table>
       </TableContainer>
       <h2>Total a pagar: ${calcularTotal()}</h2>
-      <Button color="secondary" variant="contained" fullWidth>Pagar</Button>
+      <Button color="secondary" variant="contained" fullWidth onClick={handleOpenModal}>Pagar</Button>
+      <ModalPago open={modalOpen} onClose={handleCloseModal} />
       <br></br>
       <br></br>
     </div>);
