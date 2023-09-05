@@ -140,7 +140,7 @@ function App() {
             <MenuItem value="3">Unquillo</MenuItem>
           </Select>
           {formik.touched.ciudadComercio && formik.errors.ciudadComercio && (
-            <div className="MuiFormHelperText-root Mui-error">{formik.errors.ciudadComercio}</div>)}
+            <div className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root">{formik.errors.ciudadComercio}</div>)}
         </FormControl>
         <br></br>
         <br></br>
@@ -197,7 +197,7 @@ function App() {
             <MenuItem value="3">Unquillo</MenuItem>
           </Select>
           {formik.touched.ciudadEntrega && formik.errors.ciudadEntrega && (
-            <div className="MuiFormHelperText-root Mui-error">{formik.errors.ciudadEntrega}</div>)}
+            <div className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root">{formik.errors.ciudadEntrega}</div>)}
         </FormControl>
         <br></br>
         <br></br>
