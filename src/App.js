@@ -37,9 +37,9 @@ function App() {
         }
         return true;
       })
-      .test('fileType', 'Formato de imagen no válido', (value) => {
+      .test('fileType', 'Formato de imagen no válido (Sólo se permite formato JPG )', (value) => {
         if (value) {
-          return ['image/png'].includes(value.type);
+          return ['image/jpeg'].includes(value.type);
         }
         return true;
       }),
