@@ -75,15 +75,15 @@ function App() {
 
   const formik = useFormik({
     initialValues: {
-      descripicionPedido: '',
+      descripicionPedido: 'Pedido',
       imagenPedido: '',
-      ciudadComercio: '',
-      calleComercio: '',
-      nroComercio: '',
+      ciudadComercio: '1',
+      calleComercio: 'Lima',
+      nroComercio: '156',
       referenciaComercio: '',
-      ciudadEntrega: '',
-      calleEntrega: '',
-      nroEntrega: '',
+      ciudadEntrega: '2',
+      calleEntrega: 'Colon',
+      nroEntrega: '456',
       referenciaEntrega: ''
     },
     validationSchema: validationSchema,
