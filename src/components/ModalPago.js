@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import ModalConfirmacionPago from './ModalConfirmacionPago';
 
-const ModalPago = ({ open, onClose }) => {
+const ModalPago = ({ open, onClose,totalApagar}) => {
 
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -18,7 +18,7 @@ const ModalPago = ({ open, onClose }) => {
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Pagar</DialogTitle>
             <DialogContent>
-                <li>Total a pagar: $$XXX</li>
+                <h2>Total a pagar: ${totalApagar}</h2>
                 <li>Cuando quiere resibirlo? “Lo antes posible” o una fecha/hora de recepción</li>
                 <li>Efectivo -- con cuanto va a pagar?</li>
                 <li>Tarjeta -- Cargar datos de la tarjeta/validación</li>
