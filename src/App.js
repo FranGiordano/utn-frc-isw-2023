@@ -89,7 +89,7 @@ function App() {
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
       values.subtotal = Math.floor(Math.random() * 100) + 1;
-      setPedidos([...pedidos, values]);
+      setPedidos([values]);
       resetForm();
     },
   });
@@ -249,7 +249,7 @@ function App() {
         <br></br>
         <br></br>
         <Button color="primary" variant="contained" fullWidth type="submit">
-          Agregar Pedido
+          Confirmar pedido
         </Button>
         <br></br>
         <br></br>
