@@ -391,10 +391,10 @@ function App() {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-      )}
-      <h2>Total a pagar: ${!pedidos[0]? 0 : pedidos[0].total}</h2>
-      <Button color="secondary" variant="contained" disabled={pedidos.length === 0} fullWidth onClick={handleOpenModal}>Pagar</Button>
+          <h2>Total a pagar: ${!pedidos[0]? 0 : pedidos[0].total}</h2>
+          <Button color="secondary" variant="contained" fullWidth onClick={handleOpenModal}>Pagar</Button>
+        </TableContainer>     
+      )}     
       {modalOpen && (
         <ModalPago open={modalOpen} onClose={handleCloseModal} totalApagar={pedidos[0]?.total} />
       )}
