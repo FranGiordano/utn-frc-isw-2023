@@ -37,10 +37,14 @@ function App() {
     setModalOpen(true);
   };
 
-  const handleCloseModal = (event) => {
+  const handleCloseModalConfPago = (event) => {
     console.log(event)
     setModalOpen(false);
     eliminarPedido()
+  };
+
+  const handleCloseModal = (event) => {
+    setModalOpen(false);
   };
 
   const validationSchema = yup.object({
@@ -150,6 +154,7 @@ function App() {
   return (
     <div className="container">
       <h1>Realizar Pedido de “lo que sea”</h1>
+      <br></br>
       <form onSubmit={formik.handleSubmit}>
         <h2>Descripción del pedido</h2>
         <TextField
@@ -398,7 +403,7 @@ function App() {
         </TableContainer>     
       )}     
       {modalOpen && (
-        <ModalPago open={modalOpen} onClose={handleCloseModal} totalApagar={pedidos[0]?.total} />
+        <ModalPago open={modalOpen} onClose={handleCloseModal} onCloseConfirmacionPago={handleCloseModalConfPago} totalApagar={pedidos[0]?.total} />
       )}
     </div>);
 }

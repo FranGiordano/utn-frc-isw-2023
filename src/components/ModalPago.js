@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-const ModalPago = ({ open, onClose, totalApagar }) => {
+const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [value, setValue] = React.useState();
@@ -160,7 +160,7 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
     }
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={open} onClose={(reason) => (reason !== 'backdropClick' && reason !== 'escapeKeyDown')}  >
             <form onSubmit={formik.handleSubmit}>
                 <DialogContent>
                     <h2>Total a pagar: ${totalApagar}</h2>
@@ -269,8 +269,8 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                         name="fechaVencimiento"
                                         value={formik.values.fechaVencimiento}
                                         minDate={dayjs(new Date())}
-                                        views={["year", "month"]}  
-                                        disableMaskedInput={false}                                    
+                                        views={["year", "month"]}
+                                        disableMaskedInput={false}
                                         onChange={(value) => formik.setFieldValue('fechaVencimiento', value)}
                                         error={formik.touched.fechaVencimiento && Boolean(formik.errors.fechaVencimiento)}
                                         renderInput={(params) => <TextField {...params} />}
@@ -295,12 +295,14 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                     )}
                 </DialogContent>
                 <DialogActions>
+                    <Button color="error" style={{width:"20%"}} variant="outlined" fullWidth onClick={onClose}>
+                        Cerrar</Button>
                     <Button color="primary" variant="contained" fullWidth type="submit">
                         Confirmar pago
                     </Button>
                 </DialogActions>
             </form>
-            <ModalConfirmacionPago open={modalOpen} onClose={onClose} />
+            <ModalConfirmacionPago open={modalOpen} onClose={onCloseConfirmacionPago} />
         </Dialog>
 
     );
