@@ -136,6 +136,15 @@ function App() {
     pedidos.length = 0
   }
 
+  const eliminarPedido = () => {
+    setDisabled(false);
+    setPedido([]);
+    pedidos.length = 0
+    formik.resetForm();
+    selectedImages.length = 0;
+  }
+
+
   return (
     <div className="container">
       <h1>Realizar Pedido de “lo que sea”</h1>
@@ -371,8 +380,11 @@ function App() {
                     <p>{row.ciudadEntrega + ", " + row.calleEntrega + " " + row.nroEntrega}</p>
                   </TableCell>
                   <TableCell>
-                    <Button color="success" variant="contained" onClick={modificarPedido}>
+                    <Button style={{marginRight:'10px'}} color="success" variant="contained" onClick={modificarPedido}>
                       Modificar
+                    </Button>
+                    <Button color="error" variant="contained" onClick={eliminarPedido}>
+                      Eliminar
                     </Button>
                   </TableCell>
                 </TableRow>
