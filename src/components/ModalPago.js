@@ -94,7 +94,7 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
             efectivo: '',
             nombreTitular: '',
             numeroTarjeta: '',
-            fechaVencimiento: dayjs(new Date()),
+            fechaVencimiento: null,
             cvv: ''
         },
         validationSchema: validationSchema,
@@ -241,7 +241,6 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                 error={formik.touched.nombreTitular && Boolean(formik.errors.nombreTitular)}
                                 helperText={formik.touched.nombreTitular && formik.errors.nombreTitular}
                             />
-
                             <Grid container spacing={2}>
                                 <Grid item style={{ width: "60%" }}>
                                     <TextField
@@ -261,10 +260,6 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                     {texto && (<h2 style={{ margin: "0px" }}>{texto}</h2>)}
                                 </Grid>
                             </Grid>
-
-
-
-
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <Stack style={{ marginBottom: '16px' }} spacing={3}>
                                     <DesktopDatePicker
@@ -273,7 +268,9 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                         id="fechaVencimiento"
                                         name="fechaVencimiento"
                                         value={formik.values.fechaVencimiento}
-                                        minDate={formik.values.fechaVencimiento}
+                                        minDate={dayjs(new Date())}
+                                        views={["year", "month"]}  
+                                        disableMaskedInput={false}                                    
                                         onChange={(value) => formik.setFieldValue('fechaVencimiento', value)}
                                         error={formik.touched.fechaVencimiento && Boolean(formik.errors.fechaVencimiento)}
                                         renderInput={(params) => <TextField {...params} />}

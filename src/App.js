@@ -37,8 +37,10 @@ function App() {
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (event) => {
+    console.log(event)
     setModalOpen(false);
+    eliminarPedido()
   };
 
   const validationSchema = yup.object({
