@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import ModalConfirmacionPago from './ModalConfirmacionPago';
-import { FormControl, FormControlLabel, FormHelperText, FormLabel, InputAdornment, InputLabel, OutlinedInput, Radio, RadioGroup, Stack, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, InputLabel, OutlinedInput, Radio, RadioGroup, Stack, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker, DesktopDatePicker } from '@mui/x-date-pickers';
@@ -17,29 +16,7 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [value, setValue] = React.useState();
-    const [startDate, setStartDate] = React.useState(dayjs(new Date()));
     const [texto, setTexto] = useState('');
-    const [nroTarjeta, setNroTarjeta] = useState('');
-    const [tarjetaValida, setTarjetaValida] = useState('');
-
-    const handleInputChange = (event) => {
-        const nuevoTexto = event.target.value;
-        let empresa;
-        empresa = mostrarEmpresaTarjeta(nuevoTexto);
-        setTexto(empresa);
-        setNroTarjeta(nuevoTexto);
-    };
-
-    const handleValidar = () => {
-        if (validarTarjeta(nroTarjeta))
-            setTarjetaValida("");
-        else
-            setTarjetaValida("Tarjeta Invalida");
-    };
-
-    const handleChange = (newValue) => {
-        setValue(newValue);
-    };
 
     const handleOpenModal = () => {
         setModalOpen(true);
@@ -47,91 +24,88 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
 
     const validationSchema = yup.object({
         fechaPersonalizada: yup.date()
-        .test({
-            test: function (value) {
-                if (this.parent.recibirPedido === "fechaPersonalizada") {
-                    return yup.date().required("Campo requerido").isValidSync(value);
+            .required("Campo requerido")
+            .when('recibirPedido', ([recibirPedido], schema) => {
+                if (recibirPedido === 'antesPosible') {
+                    return schema.notRequired();
                 }
-                return false;
-            },
-        }),
+            }),
         efectivo: yup.number()
-        .test({
-            test: function (value) {
-                if (this.parent.paymentMethod === "efectivo") {
-                    return yup.number().required("Campo requerido").isValidSync(value);
+            .typeError("Debe ingresar un número")
+            .required("Campo requerido")
+            .test({
+                test: function (value) {
+                    if (value < totalApagar) {
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
-            },
-        }),
+            })
+            .when('paymentMethod', ([paymentMethod], schema) => {
+                if (paymentMethod === 'tarjeta') {
+                    return schema.notRequired();
+                }
+            }),
         nombreTitular: yup.string()
-        .test({
-            test: function (value) {
-                if (this.parent.paymentMethod === "tarjeta") {
-                    return yup.string().required("Campo requerido").isValidSync(value);
+            .required("Campo requerido")
+            .when('paymentMethod', ([paymentMethod], schema) => {
+                if (paymentMethod === 'efectivo') {
+                    return schema.notRequired();
                 }
-                return true;
-            },
-        }),
+            }),
         numeroTarjeta: yup.mixed()
-        .test({
-            test: function (value) {
-                if(mostrarEmpresaTarjeta(value)!== "")
-                 setTexto(mostrarEmpresaTarjeta(value));
-                return validarTarjeta(value);
-            },
-        })
-        .test({
-            test: function (value) {
-                if (this.parent.paymentMethod === "tarjeta") {
-                    return yup.string().required("Campo requerido").isValidSync(value);
+            .required("Campo requerido")
+            .test({
+                test: function (value) {
+                    setTexto(mostrarEmpresaTarjeta(value));
+                    if (this.parent.paymentMethod === "tarjeta")
+                        return validarTarjeta(value);
+                    return true;
                 }
-                return true;
-            },
-        }),
-     //   fechaVencimiento: yup.date()
-     //   .test({
-     //       test: function (value) {
-     //           if (this.parent.paymentMethod === "tarjeta") {
-     //               return yup.string().required("Campo requerido").isValidSync(value);
-     //           }
-     //           return true;
-     //       },
-     //   }),
+            })
+            .when('paymentMethod', ([paymentMethod], schema) => {
+                if (paymentMethod === 'efectivo') {
+                    return schema.notRequired();
+                }
+                setTexto(mostrarEmpresaTarjeta(value));
+            }),
+        fechaVencimiento: yup.date()
+            .required("Campo requerido")
+            .when('paymentMethod', ([paymentMethod], schema) => {
+                if (paymentMethod === 'efectivo') {
+                    return schema.notRequired();
+                }
+            }),
         cvv: yup.number()
-        .test({
-            test: function (value) {
-                if (this.parent.paymentMethod === "tarjeta") {
-                    return yup.string().required("Campo requerido").isValidSync(value);
+            .typeError("Debe ingresar un número")
+            .required("Campo requerido")
+            .when('paymentMethod', ([paymentMethod], schema) => {
+                if (paymentMethod === 'efectivo') {
+                    return schema.notRequired();
                 }
-                return true;
-            },
-        }),
-
+            }),
     });
 
     const formik = useFormik({
         initialValues: {
             recibirPedido: 'antesPosible',
-            fechaPersonalizada: null,
+            fechaPersonalizada: dayjs(new Date()),
             paymentMethod: 'efectivo',
             efectivo: '',
             nombreTitular: '',
             numeroTarjeta: '',
-           // fechaVencimiento: null,
+            fechaVencimiento: dayjs(new Date()),
             cvv: ''
         },
         validationSchema: validationSchema,
         onSubmit: (values, { resetForm }) => {
-            //   resetForm();
-            console.log(values)
             handleOpenModal();
         },
     });
 
     function mostrarEmpresaTarjeta(numeroTarjeta) {
-        if(!numeroTarjeta)
-           return "";
+        if (!numeroTarjeta)
+            return "";
         let primerosDigitos = numeroTarjeta.slice(0, 6);
         let empresas = {
             '4': 'Visa',
@@ -153,9 +127,9 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
     }
 
     function validarTarjeta(numeroTarjeta) {
-            
-       if(!numeroTarjeta) 
-         return false;
+
+        if (!numeroTarjeta)
+            return false;
 
         numeroTarjeta = numeroTarjeta.replace(/\s/g, '').replace(/[^0-9]/g, '');
 
@@ -213,11 +187,11 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                     value={formik.values.fechaPersonalizada}
                                     onChange={(value) => formik.setFieldValue('fechaPersonalizada', value)}
                                     error={formik.touched.fechaPersonalizada && Boolean(formik.errors.fechaPersonalizada)}
-                                    minDate={startDate}
+                                    minDate={formik.values.fechaPersonalizada}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                                 {formik.touched.fechaPersonalizada && formik.errors.fechaPersonalizada && (
-                                    <FormHelperText error>{formik.errors.fechaPersonalizada}</FormHelperText>
+                                    <FormHelperText error style={{ marginLeft: '15px', marginTop: '5px' }}>{formik.errors.fechaPersonalizada}</FormHelperText>
                                 )}
                             </Stack>
                         </LocalizationProvider>
@@ -267,19 +241,30 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                 error={formik.touched.nombreTitular && Boolean(formik.errors.nombreTitular)}
                                 helperText={formik.touched.nombreTitular && formik.errors.nombreTitular}
                             />
-                            <TextField
-                                style={{ marginBottom: '16px' }}
-                                fullWidth
-                                id="numeroTarjeta"
-                                name="numeroTarjeta"
-                                label="Número de tarjeta"
-                                value={formik.values.numeroTarjeta}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.numeroTarjeta && Boolean(formik.errors.numeroTarjeta)}
-                                helperText={formik.touched.numeroTarjeta && formik.errors.numeroTarjeta}
-                            />
-                            {texto && (<h2>{texto}</h2>)}
+
+                            <Grid container spacing={2}>
+                                <Grid item style={{ width: "60%" }}>
+                                    <TextField
+                                        style={{ marginBottom: '16px' }}
+                                        fullWidth
+                                        id="numeroTarjeta"
+                                        name="numeroTarjeta"
+                                        label="Número de tarjeta"
+                                        value={formik.values.numeroTarjeta}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        error={formik.touched.numeroTarjeta && Boolean(formik.errors.numeroTarjeta)}
+                                        helperText={formik.touched.numeroTarjeta && formik.errors.numeroTarjeta}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    {texto && (<h2 style={{ margin: "0px" }}>{texto}</h2>)}
+                                </Grid>
+                            </Grid>
+
+
+
+
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <Stack style={{ marginBottom: '16px' }} spacing={3}>
                                     <DesktopDatePicker
@@ -288,12 +273,13 @@ const ModalPago = ({ open, onClose, totalApagar }) => {
                                         id="fechaVencimiento"
                                         name="fechaVencimiento"
                                         value={formik.values.fechaVencimiento}
+                                        minDate={formik.values.fechaVencimiento}
                                         onChange={(value) => formik.setFieldValue('fechaVencimiento', value)}
                                         error={formik.touched.fechaVencimiento && Boolean(formik.errors.fechaVencimiento)}
                                         renderInput={(params) => <TextField {...params} />}
                                     />
                                     {formik.touched.fechaVencimiento && formik.errors.fechaVencimiento && (
-                                        <FormHelperText error>{formik.errors.fechaVencimiento}</FormHelperText>
+                                        <FormHelperText error style={{ marginLeft: '15px', marginTop: '5px' }}>{formik.errors.fechaVencimiento}</FormHelperText>
                                     )}
                                 </Stack>
                             </LocalizationProvider>
