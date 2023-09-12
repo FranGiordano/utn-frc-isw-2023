@@ -33,13 +33,12 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
         efectivo: yup.number()
             .typeError("Debe ingresar un número")
             .required("Campo requerido")
-            .test({
-                test: function (value) {
+            .test('efectivo','El monto debe ser mayor o igual al importe a abonar',(value)=>{
                     if (value < totalApagar) {
                         return false;
                     }
                     return true;
-                }
+                
             })
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'tarjeta') {
@@ -55,14 +54,14 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
             }),
         numeroTarjeta: yup.mixed()
             .required("Campo requerido")
-            .test({
-                test: function (value) {
+            .test('numeroTarjeta','Debe ingresar un número de tarjeta Visa válido',
+                function (value) {
                     setTexto(mostrarEmpresaTarjeta(value));
                     if (this.parent.paymentMethod === "tarjeta")
                         return validarTarjeta(value);
                     return true;
                 }
-            })
+            )
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'efectivo') {
                     return schema.notRequired();
@@ -79,6 +78,16 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
         cvv: yup.number()
             .typeError("Debe ingresar un número")
             .required("Campo requerido")
+            .test('cvc','Debe ser un número de 3 dígitos',
+            function (value) {
+                if (this.parent.paymentMethod === "tarjeta") {
+                    if (value.toString().length !== 3) {
+                        return false
+                    }
+                    return true;
+                }
+                return true;
+            })
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'efectivo') {
                     return schema.notRequired();
@@ -184,6 +193,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                     id="fechaPersonalizada"
                                     name="fechaPersonalizada"
                                     label="Fecha y hora de entrega"
+                                    inputFormat="MM/yyyy"
                                     value={formik.values.fechaPersonalizada}
                                     onChange={(value) => formik.setFieldValue('fechaPersonalizada', value)}
                                     error={formik.touched.fechaPersonalizada && Boolean(formik.errors.fechaPersonalizada)}
@@ -284,7 +294,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                 fullWidth
                                 id="cvv"
                                 name="cvv"
-                                label="Número de cvv"
+                                label="Número de cvc"
                                 value={formik.values.cvv}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
