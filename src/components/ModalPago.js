@@ -279,7 +279,8 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                         name="fechaVencimiento"
                                         value={formik.values.fechaVencimiento}
                                         minDate={dayjs(new Date())}
-                                        views={["year", "month"]}
+                                        views={["month", "year"]}
+                                        format="MM/YYYY"
                                         disableMaskedInput={false}
                                         onChange={(value) => formik.setFieldValue('fechaVencimiento', value)}
                                         error={formik.touched.fechaVencimiento && Boolean(formik.errors.fechaVencimiento)}
