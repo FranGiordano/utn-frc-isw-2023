@@ -193,7 +193,6 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                     id="fechaPersonalizada"
                                     name="fechaPersonalizada"
                                     label="Fecha y hora de entrega"
-                                    inputFormat="MM/yyyy"
                                     value={formik.values.fechaPersonalizada}
                                     onChange={(value) => formik.setFieldValue('fechaPersonalizada', value)}
                                     error={formik.touched.fechaPersonalizada && Boolean(formik.errors.fechaPersonalizada)}
