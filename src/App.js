@@ -86,14 +86,14 @@ function App() {
     onSubmit: (values, { resetForm }) => {
       setDisabled(true);
       if (values.ciudadComercio === pedido.ciudadComercio &&
-          values.calleComercio === pedido.calleComercio &&
-          values.nroComercio === pedido.nroComercio &&
-          values.ciudadEntrega === pedido.ciudadEntrega &&
-          values.calleEntrega === pedido.calleEntrega &&
-          values.nroEntrega === pedido.nroEntrega)
-       setPedidos([values]);  
+        values.calleComercio === pedido.calleComercio &&
+        values.nroComercio === pedido.nroComercio &&
+        values.ciudadEntrega === pedido.ciudadEntrega &&
+        values.calleEntrega === pedido.calleEntrega &&
+        values.nroEntrega === pedido.nroEntrega)
+        setPedidos([values]);
       else
-       calcularTotal(values);
+        calcularTotal(values);
       setPedidos([values]);
     },
   });
@@ -104,10 +104,44 @@ function App() {
       values.calleComercio === values.calleEntrega &&
       values.nroComercio === values.nroEntrega) {
       values.total = 0;
+      values.distancia = 0;
       return;
     }
-    values.total = Math.floor(Math.random() * 100) + 50;
+    
+    let direCiudad = values.ciudadComercio + "-" + values.ciudadEntrega; 
+
+    values.distancia = calcularDistancia(direCiudad);
+    if (values.distancia < 100)
+      values.total = 0
+    else
+      values.total = (values.distancia * 50) / 100;
   };
+
+  const calcularDistancia = (direCiudad) => {
+    
+    let templateDistancia = {
+      "Córdoba-Córdoba": "0-10000",
+      "Córdoba-Carlos Paz": "40000-50000",
+      "Córdoba-Unquillo": "20000-30000",
+      "Carlos Paz-Córdoba": "40000-50000",
+      "Carlos Paz-Carlos Paz": "0-5000",
+      "Carlos Paz-Unquillo": "60000-65000",
+      "Unquillo-Córdoba": "20000-30000",
+      "Unquillo-Carlos Paz": "60000-65000",
+      "Unquillo-Unquillo": "0-5000",
+    }
+
+    let distancia = templateDistancia[direCiudad].split("-");
+    
+    let distMin = parseInt(distancia[0]);
+    let distMax = parseInt(distancia[1]);
+
+    const distAleatorio = Math.random();
+
+    const rango = distAleatorio * (distMax - distMin) + distMin;
+
+   return Math.round(rango);
+  }
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -360,6 +394,7 @@ function App() {
                 <TableCell>Imagen/es</TableCell>
                 <TableCell>Lo busco en:</TableCell>
                 <TableCell>Lo entrego en:</TableCell>
+                <TableCell>Distancia</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
@@ -386,7 +421,10 @@ function App() {
                     <p>{row.ciudadEntrega + ", " + row.calleEntrega + " " + row.nroEntrega}</p>
                   </TableCell>
                   <TableCell>
-                    <Button style={{marginRight:'10px'}} color="success" variant="contained" onClick={modificarPedido}>
+                    <p>{row.distancia + " m"}</p>
+                  </TableCell>
+                  <TableCell>
+                    <Button style={{ marginRight: '10px' }} color="success" variant="contained" onClick={modificarPedido}>
                       Modificar
                     </Button>
                     <Button color="error" variant="contained" onClick={eliminarPedido}>
@@ -397,10 +435,10 @@ function App() {
               ))}
             </TableBody>
           </Table>
-          <h2>Total a pagar: ${!pedidos[0]? 0 : pedidos[0].total}</h2>
+          <h2>Total a pagar: ${!pedidos[0] ? 0 : pedidos[0].total}</h2>
           <Button color="secondary" variant="contained" fullWidth onClick={handleOpenModal}>Pagar</Button>
-        </TableContainer>     
-      )}     
+        </TableContainer>
+      )}
       {modalOpen && (
         <ModalPago open={modalOpen} onClose={handleCloseModal} onCloseConfirmacionPago={handleCloseModalConfPago} totalApagar={pedidos[0]?.total} />
       )}
