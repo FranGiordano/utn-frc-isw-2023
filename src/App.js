@@ -38,7 +38,6 @@ function App() {
   };
 
   const handleCloseModalConfPago = (event) => {
-    console.log(event)
     setModalOpen(false);
     eliminarPedido()
   };

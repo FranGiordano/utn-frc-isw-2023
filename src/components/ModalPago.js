@@ -24,7 +24,21 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
 
     const validationSchema = yup.object({
         fechaPersonalizada: yup.date()
+            .typeError("Fecha invalida")
             .required("Campo requerido")
+            .test('fechaPersonalizada', 'La fecha debe ser igual o mayor a la actual', (value) => {
+              
+             let fechaActual = dayjs(new Date()).format('DD/MM/YYYY');
+             let formatValue = dayjs(value).format('DD/MM/YYYY');  
+
+             fechaActual = new Date(fechaActual);
+             formatValue = new Date(formatValue);
+
+              if ( formatValue < fechaActual ) {
+                return false;
+            }
+            return true;
+            })
             .when('recibirPedido', ([recibirPedido], schema) => {
                 if (recibirPedido === 'antesPosible') {
                     return schema.notRequired();
@@ -33,13 +47,12 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
         efectivo: yup.number()
             .typeError("Debe ingresar un número")
             .required("Campo requerido")
-            .test({
-                test: function (value) {
-                    if (value < totalApagar) {
-                        return false;
-                    }
-                    return true;
+            .test('efectivo', 'El monto debe ser mayor o igual al importe a abonar', (value) => {
+                if (value < totalApagar) {
+                    return false;
                 }
+                return true;
+
             })
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'tarjeta') {
@@ -55,14 +68,14 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
             }),
         numeroTarjeta: yup.mixed()
             .required("Campo requerido")
-            .test({
-                test: function (value) {
+            .test('numeroTarjeta', 'Debe ingresar un número de tarjeta válido',
+                function (value) {
                     setTexto(mostrarEmpresaTarjeta(value));
                     if (this.parent.paymentMethod === "tarjeta")
                         return validarTarjeta(value);
                     return true;
                 }
-            })
+            )
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'efectivo') {
                     return schema.notRequired();
@@ -70,6 +83,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                 setTexto(mostrarEmpresaTarjeta(value));
             }),
         fechaVencimiento: yup.date()
+            .typeError("Fecha invalida")
             .required("Campo requerido")
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'efectivo') {
@@ -79,6 +93,16 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
         cvv: yup.number()
             .typeError("Debe ingresar un número")
             .required("Campo requerido")
+            .test('cvc', 'Debe ser un número de 3 dígitos',
+                function (value) {
+                    if (this.parent.paymentMethod === "tarjeta") {
+                        if (value.toString().length !== 3) {
+                            return false
+                        }
+                        return true;
+                    }
+                    return true;
+                })
             .when('paymentMethod', ([paymentMethod], schema) => {
                 if (paymentMethod === 'efectivo') {
                     return schema.notRequired();
@@ -89,7 +113,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
     const formik = useFormik({
         initialValues: {
             recibirPedido: 'antesPosible',
-            fechaPersonalizada: dayjs(new Date()),
+            fechaPersonalizada: null,
             paymentMethod: 'efectivo',
             efectivo: '',
             nombreTitular: '',
@@ -185,9 +209,12 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                     name="fechaPersonalizada"
                                     label="Fecha y hora de entrega"
                                     value={formik.values.fechaPersonalizada}
+                                    views={["month", "year", 'day', 'hours', 'minutes']}
+                                    format="DD/MM/YYYY HH:mm"
+                                    disableMaskedInput={false}
                                     onChange={(value) => formik.setFieldValue('fechaPersonalizada', value)}
                                     error={formik.touched.fechaPersonalizada && Boolean(formik.errors.fechaPersonalizada)}
-                                    minDate={formik.values.fechaPersonalizada}
+                                    minDate={dayjs(new Date())}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                                 {formik.touched.fechaPersonalizada && formik.errors.fechaPersonalizada && (
@@ -269,7 +296,8 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                         name="fechaVencimiento"
                                         value={formik.values.fechaVencimiento}
                                         minDate={dayjs(new Date())}
-                                        views={["year", "month"]}
+                                        views={["month", "year"]}
+                                        format="MM/YYYY"
                                         disableMaskedInput={false}
                                         onChange={(value) => formik.setFieldValue('fechaVencimiento', value)}
                                         error={formik.touched.fechaVencimiento && Boolean(formik.errors.fechaVencimiento)}
@@ -284,7 +312,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                                 fullWidth
                                 id="cvv"
                                 name="cvv"
-                                label="Número de cvv"
+                                label="Número de cvc"
                                 value={formik.values.cvv}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -295,7 +323,7 @@ const ModalPago = ({ open, onClose, onCloseConfirmacionPago, totalApagar }) => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button color="error" style={{width:"20%"}} variant="outlined" fullWidth onClick={onClose}>
+                    <Button color="error" style={{ width: "20%" }} variant="outlined" fullWidth onClick={onClose}>
                         Cerrar</Button>
                     <Button color="primary" variant="contained" fullWidth type="submit">
                         Confirmar pago
