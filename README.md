@@ -14,14 +14,11 @@
     ├── Bibliografía                # Libros y recursos de lectura provistos por la cátedra
     │
     ├── Material Cátedra            # Información académica, horarios, clases grabadas, etc
+    │
     ├── Material Práctico           # Trabajos Practicos Evaluables, No Evaluables y guías 
     │   ├── Evaluables
-    │   │   └── TPX
-    │   │
-    │   ├── Guias                   # Guías de trabajos prácticos
+    │   ├── Guías                   # Guías de trabajos prácticos
     │   ├── No Evaluables
-    │   │   └── TPX
-    │   │
     │   └── Templates               # Templates para rendir o para TPs
     │
     ├── Material Teórico            # Filminas de clases y material adicional teórico
