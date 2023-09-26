@@ -31,34 +31,34 @@
     └── README.md
     
 
-| Ítems de configuración          | Regla de Nombrado                                 | Ubicación física                        |
-|---------------------------------|---------------------------------------------------|-----------------------------------------|
-| `Libros`                        | ISW-2023-Libro-{`Nombre`}.{`ext`}                 | /Bibliografía                           |
-| `Filminas`                      | ISW-2023-{`Numero`}-{`Nombre`}.{`ext`}            | /Material Teórico/Filminas              |
-| `Templates para parciales`      | ISW-2023-{`Nombre`}.{`ext`}                       | /Material Práctico/Templates            |
-| `Recursos Adicionales`          | ISW-2023-{`Nombre`}.{`ext`}                       | /Material Teórico/Recursos Adicionales  |
-| `Guía de Trabajos`              | ISW-2023-{`Nombre`}.{`ext`}                       | /Material Práctico/Guías                |
-| `Trabajos Prácticos Evaluables` | ISW-2023-TP-Evaluable-{`Numero`}-{`Tema`}.{`ext`} | /Material Práctico/Evaluables           |
-| `Modalidad Académica`           | ISW-2023-Modalidad Académica.pdf                  | /Material Cátedra                       |
-| `Links a clases grabadas`       | ISW-2023-Links a clases grabadas.md               | /Material Cátedra                       |
-| `Información de clases`         | ISW-2023-Información de clases.md                 | /Material Cátedra                       |
+| Ítems de configuración          | Regla de Nombrado                                    | Ubicación física                        |
+|---------------------------------|------------------------------------------------------|-----------------------------------------|
+| `Libros`                        | Libro-<Nombre>.<Extension>                           | /Bibliografía                           |
+| `Filminas`                      | MT-Filmina-Nro<NroFilmina>-<Nombre>.pdf              | /Material Teórico/Filminas              |
+| `Templates para parciales`      | MP-Template-<Nombre>.<Extension>                     | /Material Práctico/Templates            |
+| `Recursos Adicionales`          | MT-Recurso-<Nombre>.pdf                              | /Material Teórico/Recursos Adicionales  |
+| `Guía de Trabajos`              | MP-Guia-<Nombre>.pdf                                 | /Material Práctico/Guías                |
+| `Trabajos Prácticos Evaluables` | MP-Evaluable-Nro<NroTP>-<Nombre>.<Extension>         | /Material Práctico/Evaluables           |
+| `Trabajos Prácticos Evaluables` | MP-Evaluable-Nro<NroTP>-<Nombre>.<Extension>         | /Material Práctico/No Evaluables        |
+| `Material Cátedra`              | Catedra-<Nombre>.<extension>                         | /Material Cátedra                       |
+
 
 
 ## Referencias
-| Siglas     | Significado                                                                                                                                     |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `{Nombre}` | Nombre del archivo cómo figura en la UV (libro, presentación, template, guía, etc). Los nombres deben contener palabras separadas por espacios. |
-| `{ext}`    | Extensión del archivo (pdf, zip, docx, etc)                                                                                                     | |
-| `{Numero}` | Número de órden del recurso.                                                                                                                    |
-| `{Tema}`   | Nombre descriptivo del tema al cuál el archivo hace referencia.                                                                                 |
+| Siglas       		| Significado                                                                                                                                     |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<Nombre>`   		| Nombre del archivo cómo figura en la UV (libro, presentación, template, guía, etc). Los nombres deben contener palabras separadas por espacios. |
+| `<Extension>`      	| Extensión del archivo (pdf, zip, docx, etc)                                                                                                     |
+| `<NumeroTP>` 		| Número de cada trabajo práctico                                                                                                                 |
+| `<NumeroFilmina>`     | Número de cada filmina tal como figura en la UV												  |
 
 ## Linea Base
 ```
 Las líneas base se identificarán con la siguiente etiqueta:
 
-ISW-2023-G09-{Version}
+LB-G09-<NroLineaBase>
 
-Version va a ser un número entero comenzando con el 1 e irá incrementando en una unidad.
+<NroLineaBase> va a ser un número entero comenzando con el 1 e irá incrementando en una unidad.
 
 La revisión de cambios se realizará el Lunes posterior a un Parcial o entrega de Trabajo Práctico Evaluable, 
 y en caso de ser necesario se procederá a la creación de una nueva Linea Base.
