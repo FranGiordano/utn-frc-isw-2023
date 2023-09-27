@@ -16,10 +16,10 @@
     ├── Material Cátedra            # Información académica, horarios, clases grabadas, etc
     │
     ├── Material Práctico           # Trabajos Practicos Evaluables, No Evaluables y guías 
-    │   ├── Evaluables
+    │   ├── Evaluables              
     │   ├── Guías                   # Guías de trabajos prácticos
     │   ├── No Evaluables
-    │   └── Templates               # Templates para rendir o para TPs
+    │   └── Templates               # Templates para parciales o para TPs
     │
     ├── Material Teórico            # Filminas de clases y material adicional teórico
     │   ├── Filminas
@@ -31,23 +31,23 @@
 | Ítems de configuración              | Regla de Nombrado                                    | Ubicación física                        |
 |-------------------------------------|------------------------------------------------------|-----------------------------------------|
 | `Libros`                            | Libro-`<Nombre>`.`<Extension>`                       | /Bibliografía                           |
-| `Filminas`                          | MT-Filimina-Nro`<NroFilmina>`-`<Nombre>`.pdf          | /Material Teórico/Filminas              |
+| `Filminas`                          | MT-Filimina-Nro`<NroFilmina>`-`<Nombre>`.pdf         | /Material Teórico/Filminas              |
 | `Recursos Adicionales`              | MT-Recurso-`<Nombre>`.pdf                            | /Material Teórico/Recursos Adicionales  |
 | `Templates para parciales`          | MP-Template-`<Nombre>`.`<Extension>`                 | /Material Práctico/Templates            |
 | `Guía de Trabajos`                  | MP-Guia-`<Nombre>`.pdf                               | /Material Práctico/Guías                |
-| `Trabajos Prácticos Evaluables`     | MP-Evaluable-Nro`<NroTP>`-`<Nombre>`.`<Extension>`     | /Material Práctico/Evaluables           |
-| `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-Nro`<NroTP>`-`<Nombre>`.`<Extension>`  | /Material Práctico/No Evaluables        |
+| `Trabajos Prácticos Evaluables`     | MP-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>`    | /Material Práctico/Evaluables           |
+| `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>` | /Material Práctico/No Evaluables        |
 | `Material Cátedra`                  | Catedra-`<Nombre>`.`<extension>`                     | /Material Cátedra                       |
 
 
 
 ## Referencias
-| Siglas       		| Significado                                                                                                                                     |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Siglas       		| Significado                                                                                                                                           |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<Nombre>`   		| Nombre del archivo según como figura en la UV (libro, presentación, template, guía, etc). Los nombres deben contener palabras separadas por espacios. |
-| `<Extension>`      	| Extensión del archivo (pdf, zip, docx, etc)                                                                                                     |
-| `<NroTP>` 		| Número de cada trabajo práctico                                                                                                                 |
-| `<NroFilmina>`     | Número de cada filmina tal como figura en la UV												  |
+| `<Extension>`      	| Extensión del archivo (pdf, zip, docx, etc)                                                                                                           |
+| `<NroTP>` 		| Número de trabajo práctico relacionado con el Evaluable o No Evaluable                                                                                |
+| `<NroFilmina>`     | Número de cada filmina tal como figura en la UV												                                                                                           |
 
 ## Linea Base
 ```
