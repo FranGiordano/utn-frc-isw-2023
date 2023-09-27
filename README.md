@@ -35,7 +35,7 @@
 | `Recursos Adicionales`              | MT-Recurso-`<Nombre>`.pdf                            | /Material Teórico/Recursos Adicionales  |
 | `Templates para parciales`          | MP-Template-`<Nombre>`.`<Extension>`                 | /Material Práctico/Templates            |
 | `Guía de Trabajos`                  | MP-Guia-`<Nombre>`.pdf                               | /Material Práctico/Guías                |
-| `Trabajos Prácticos Evaluables`     | MP-Evaluable-Nro<NroTP>-`<Nombre>`.`<Extension>`     | /Material Práctico/Evaluables           |
+| `Trabajos Prácticos Evaluables`     | MP-Evaluable-Nro`<NroTP>`-`<Nombre>`.`<Extension>`     | /Material Práctico/Evaluables           |
 | `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-Nro`<NroTP>`-`<Nombre>`.`<Extension>`  | /Material Práctico/No Evaluables        |
 | `Material Cátedra`                  | Catedra-`<Nombre>`.`<extension>`                     | /Material Cátedra                       |
 
