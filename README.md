@@ -23,9 +23,9 @@
     │
     ├── Material Teórico            # Filminas de clases y material adicional teórico
     │   ├── Filminas
-    │   └── Recursos Adicionales          
+    │   └── Recursos Adicionales    
     │
-    └── README.md
+    └── README.md                   # Definición del repo y criterios para la creación de las líneas base       
     
 
 | Ítems de configuración          | Regla de Nombrado                                    | Ubicación física                        |
