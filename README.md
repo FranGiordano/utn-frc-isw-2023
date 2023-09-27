@@ -49,7 +49,10 @@
 | `<NroTP>` 		| Número de trabajo práctico relacionado con el Evaluable o No Evaluable                                                                                |
 | `<NroFilmina>`     | Número de cada filmina tal como figura en la UV												                                                                                           |
 
-## Linea Base
+## Líneas Base
+|Línea Base|Fecha|Descripción|
+|----------|-----|-----------|
+|LB-G09-1|2023/09/27|Entrega de TP4 - Herramientas de SCM|
 ```
 Las líneas base se identificarán con la siguiente etiqueta:
 
@@ -59,5 +62,4 @@ LB-G09-<NroLineaBase>
 
 La revisión de cambios se realizará el Lunes posterior a un Parcial o entrega de Trabajo Práctico Evaluable, 
 y en caso de ser necesario se procederá a la creación de una nueva Linea Base.
-
 ```
