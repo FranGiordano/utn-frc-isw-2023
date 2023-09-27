@@ -28,26 +28,26 @@
     └── README.md                   # Definición del repo y criterios para la creación de las líneas base       
     
 
-| Ítems de configuración          | Regla de Nombrado                                    | Ubicación física                        |
-|---------------------------------|------------------------------------------------------|-----------------------------------------|
-| `Libros`                        | Libro-<Nombre>.<Extension>                           | /Bibliografía                           |
-| `Filminas`                      | MT-Filmina-Nro<NroFilmina>-<Nombre>.pdf              | /Material Teórico/Filminas              |
-| `Templates para parciales`      | MP-Template-<Nombre>.<Extension>                     | /Material Práctico/Templates            |
-| `Recursos Adicionales`          | MT-Recurso-<Nombre>.pdf                              | /Material Teórico/Recursos Adicionales  |
-| `Guía de Trabajos`              | MP-Guia-<Nombre>.pdf                                 | /Material Práctico/Guías                |
-| `Trabajos Prácticos Evaluables` | MP-Evaluable-Nro<NroTP>-<Nombre>.<Extension>         | /Material Práctico/Evaluables           |
-| `Trabajos Prácticos Evaluables` | MP-Evaluable-Nro<NroTP>-<Nombre>.<Extension>         | /Material Práctico/No Evaluables        |
-| `Material Cátedra`              | Catedra-<Nombre>.<extension>                         | /Material Cátedra                       |
+| Ítems de configuración              | Regla de Nombrado                                    | Ubicación física                        |
+|-------------------------------------|------------------------------------------------------|-----------------------------------------|
+| `Libros`                            | Libro-`<Nombre>`.`<Extension>`                       | /Bibliografía                           |
+| `Filminas`                          | MT-Filimina-Nro`<NroFilmina>`-`<Nombre>`.pdf          | /Material Teórico/Filminas              |
+| `Recursos Adicionales`              | MT-Recurso-`<Nombre>`.pdf                            | /Material Teórico/Recursos Adicionales  |
+| `Templates para parciales`          | MP-Template-`<Nombre>`.`<Extension>`                 | /Material Práctico/Templates            |
+| `Guía de Trabajos`                  | MP-Guia-`<Nombre>`.pdf                               | /Material Práctico/Guías                |
+| `Trabajos Prácticos Evaluables`     | MP-Evaluable-Nro<NroTP>-`<Nombre>`.`<Extension>`     | /Material Práctico/Evaluables           |
+| `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-Nro`<NroTP>`-`<Nombre>`.`<Extension>`  | /Material Práctico/No Evaluables        |
+| `Material Cátedra`                  | Catedra-`<Nombre>`.`<extension>`                     | /Material Cátedra                       |
 
 
 
 ## Referencias
 | Siglas       		| Significado                                                                                                                                     |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<Nombre>`   		| Nombre del archivo cómo figura en la UV (libro, presentación, template, guía, etc). Los nombres deben contener palabras separadas por espacios. |
+| `<Nombre>`   		| Nombre del archivo según como figura en la UV (libro, presentación, template, guía, etc). Los nombres deben contener palabras separadas por espacios. |
 | `<Extension>`      	| Extensión del archivo (pdf, zip, docx, etc)                                                                                                     |
-| `<NumeroTP>` 		| Número de cada trabajo práctico                                                                                                                 |
-| `<NumeroFilmina>`     | Número de cada filmina tal como figura en la UV												  |
+| `<NroTP>` 		| Número de cada trabajo práctico                                                                                                                 |
+| `<NroFilmina>`     | Número de cada filmina tal como figura en la UV												  |
 
 ## Linea Base
 ```
