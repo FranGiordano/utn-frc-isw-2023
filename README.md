@@ -53,6 +53,7 @@
 |Línea Base|Fecha|Descripción|
 |----------|-----|-----------|
 |LB-G09-1|2023/09/27|Entrega de TP4 - Herramientas de SCM|
+|LB-G09-2|2023/10/11|Entrega de TP3 - User Stories y Estimaciones|
 ```
 Las líneas base se identificarán con la siguiente etiqueta:
 
