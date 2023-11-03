@@ -23,7 +23,9 @@
     │
     ├── Material Teórico            # Filminas de clases y material adicional teórico
     │   ├── Filminas
-    │   └── Recursos Adicionales    
+    │   ├── Recursos Adicionales
+    │   └── Trabajos Conceptuales
+    |   
     │
     └── README.md                   # Definición del repo y criterios para la creación de las líneas base       
     
@@ -38,6 +40,7 @@
 | `Trabajos Prácticos Evaluables`     | MP-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>`    | /Material Práctico/Evaluables           |
 | `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>` | /Material Práctico/No Evaluables        |
 | `Material Cátedra`                  | Catedra-`<Nombre>`.`<extension>`                     | /Material Cátedra                       |
+| `Trabajos Conceptuales`             | TC`<NroTC>`-`<Nombre>`.`<Extension>`                 | /Material Teórico/Trabajos Conceptuales | 
 
 
 
