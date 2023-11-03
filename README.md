@@ -40,7 +40,7 @@
 | `Trabajos Prácticos Evaluables`     | MP-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>`    | /Material Práctico/Evaluables           |
 | `Trabajos Prácticos No Evaluables`  | MP-No-Evaluable-TP`<NroTP>`-`<Nombre>`.`<Extension>` | /Material Práctico/No Evaluables        |
 | `Material Cátedra`                  | Catedra-`<Nombre>`.`<extension>`                     | /Material Cátedra                       |
-| `Trabajos Conceptuales`             | TC`<NroTC>`-`<Nombre>`.`<Extension>`                 | /Material Teórico/Trabajos Conceptuales | 
+| `Trabajos Conceptuales`             | TC-`<NroTC>`-`<Nombre>`.`<Extension>`                 | /Material Teórico/Trabajos Conceptuales | 
 
 
 
